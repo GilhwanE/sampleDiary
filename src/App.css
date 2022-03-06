@@ -26,3 +26,38 @@ textarea {
   padding: 10px;
   cursor: pointer;
 }
+
+/* list */
+
+.diarylist {
+  border: 1px solid gray;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.diarylist h2 {
+  text-align: center;
+}
+
+/* item */
+
+.diaryitem {
+  background-color: rgba(240, 240, 240);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.diaryitem .info {
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
+.diaryitem .date {
+  color: gray;
+}
+
+.diaryitem .content {
+  font-weight: 700;
+  margin: 20px 0;
+}
