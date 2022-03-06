@@ -1,0 +1,28 @@
+.dirayEditor {
+  border: 1px solid gray;
+  text-align: center;
+  padding: 20px;
+}
+
+.dirayEditor input,
+textarea {
+  margin-bottom: 20px;
+  width: 500px;
+  padding: 10px;
+}
+
+.dirayEditor textarea {
+  height: 150px;
+}
+
+.dirayEditor select {
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.dirayEditor button {
+  width: 220px;
+  padding: 10px;
+  cursor: pointer;
+}
