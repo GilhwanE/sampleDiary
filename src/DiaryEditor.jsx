@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 const DiaryEditor = (props) => {
+  const authorInput = useRef();
+
   const [state, setState] = useState({
     author: '',
     content: '',
@@ -15,14 +17,22 @@ const DiaryEditor = (props) => {
   };
 
   const handleOnsumbit = () => {
-    alert('성공');
-    console.log(state);
+    if (state.author.length < 1) {
+      alert('최소 1글자 이상 입력해주세요.');
+      authorInput.current.focus();
+      return;
+    }
+    if (state.content.length < 5) {
+      authorInput.current.focus();
+      return;
+    }
+    alert('저장 성공');
   };
   return (
     <div className="dirayEditor">
       <h2>오늘의 일기</h2>
       <div>
-        <input name="author" onChange={handleState} />
+        <input ref={authorInput} name="author" onChange={handleState} />
       </div>
       <div>
         <textarea name="content" value={state.content} onChange={handleState} />
