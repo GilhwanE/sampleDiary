@@ -52,10 +52,16 @@ function App() {
     setData([newItem, ...data]);
   };
 
+  const onDelete = (targetId) => {
+    console.log(`${targetId}가 삭제 되었습니다`);
+    const newDiaryList = data.filter((it) => it.id !== targetId); //it.id가 targetId가 아니면
+    console.log(newDiaryList);
+  };
+
   return (
     <>
       <DiaryEditor onCreate={onCreate} />
-      <DiaryList diarylist={data} />
+      <DiaryList diarylist={data} onDelete={onDelete} />
     </>
   );
 }
