@@ -58,10 +58,20 @@ function App() {
     setData(newDiaryList);
   };
 
+  const onEdit = (targetId, newContent) => {
+    setData(
+      data.map(
+        (
+          it // 원본 데이터 배열에 map함수를 이용하여 모든 요소를 순회하면서 새로운 배열을 만들어서 setData에 전달할꺼야 새로운 배열이란 수정이 완료된 컨텐츠를 말함
+        ) => (it.id === targetId ? { ...it, content: newContent } : it) // 모든데이터중에 수정할데이터가 같다면 컨텐츠를 새로운 (수정)컨텐츠 값으로 변경 그게 아니라면 원본
+      )
+    );
+  };
+
   return (
     <>
       <DiaryEditor onCreate={onCreate} />
-      <DiaryList diarylist={data} onRemove={onRemove} />
+      <DiaryList onEdit={onEdit} diarylist={data} onRemove={onRemove} />
     </>
   );
 }
