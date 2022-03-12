@@ -1,43 +1,37 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
 import DiaryEditor from './DiaryEditor';
 import DiaryList from './DiaryList';
 import Lifecylce from './lifecylce';
 
-// const dummylist =
-// {
-//   id: 1,
-//   author: 'hwan',
-//   content: '안녕',
-//   emotion: 5,
-//   create_date: new Date().getTime(),
-// },
-// {
-//   id: 2,
-//   author: 'jin',
-//   content: '안녕2',
-//   emotion: 2,
-//   create_date: new Date().getTime(),
-// },
-// {
-//   id: 3,
-//   author: 'hyeon',
-//   content: '안녕3',
-//   emotion: 3,
-//   create_date: new Date().getTime(),
-// },
-// {
-//   id: 4,
-//   author: 'j',
-//   content: '안녕4',
-//   emotion: 4,
-//   create_date: new Date().getTime(),
-// },
+//https://jsonplaceholder.typicode.com/comments
 
-function App() {
+const App = () => {
   const [data, setData] = useState([]);
 
   const dataId = useRef(0);
+
+  const getData = async () => {
+    const res = await fetch(
+      'https://jsonplaceholder.typicode.com/comments'
+    ).then((res) => res.json());
+    console.log(res);
+    //원하는 json값만 불러올꺼야 fecth를 통해서
+
+    const initData = res.slice(0, 20).map((it) => {
+      return {
+        author: it.email,
+        content: it.body,
+        emotion: 5,
+        id: dataId.current++,
+      };
+    });
+    setData(initData);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   // data에 새로운 일기를 추가하는 함수 (일기 데이터를 추가 할 수 있는 함수를 Editor컴포에 전달)
   const onCreate = (author, content, emotion) => {
@@ -71,10 +65,9 @@ function App() {
 
   return (
     <>
-      <Lifecylce />
       <DiaryEditor onCreate={onCreate} />
       <DiaryList onEdit={onEdit} diarylist={data} onRemove={onRemove} />
     </>
   );
-}
+};
 export default App;
