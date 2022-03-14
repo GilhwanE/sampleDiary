@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import './App.css';
 import DiaryEditor from './DiaryEditor';
 import DiaryList from './DiaryList';
@@ -30,7 +30,9 @@ const App = () => {
   };
 
   useEffect(() => {
-    getData();
+    setTimeout(() => {
+      getData();
+    }, 1500);
   }, []);
 
   // data에 새로운 일기를 추가하는 함수 (일기 데이터를 추가 할 수 있는 함수를 Editor컴포에 전달)
@@ -48,7 +50,6 @@ const App = () => {
   };
 
   const onRemove = (targetId) => {
-    console.log(`${targetId}가 삭제 되었습니다`);
     const newDiaryList = data.filter((it) => it.id !== targetId); //it.id가 targetId가 아니면
     setData(newDiaryList);
   };
@@ -62,6 +63,19 @@ const App = () => {
       )
     );
   };
+
+  const getDiaryAnalysis = useMemo(() => {
+    if (data.length === 0) {
+      return { goodCount: 0, badCount: 0, goodRatio: 0 };
+    }
+
+    const goodCount = data.filter((it) => it.emotion >= 3).length;
+    const badCount = data.length - goodCount;
+    const goodRatio = (goodCount / data.length) * 100.0;
+    return { goodCount, badCount, goodRatio };
+  }, [data.length]);
+
+  const { goodCount, badCount, goodRatio } = getDiaryAnalysis;
 
   return (
     <>
