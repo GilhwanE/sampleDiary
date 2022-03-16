@@ -1,15 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
+import { DiaryDispatchContext } from './App';
 
-const DiaryItem = ({
-  author,
-  content,
-  create_date,
-  emotion,
-  id,
-  onRemove,
-  onEdit,
-}) => {
+const DiaryItem = ({ author, content, create_date, emotion, id }) => {
   const [isEdit, setIsEdit] = useState(false); //isEdit은 불린값을 가지고 존재하거나 아닐시를 판단
+  const { onRemove, onEdit } = useContext(DiaryDispatchContext);
+
   const localcontentInput = useRef();
   const toggleIsEdit = () => {
     setIsEdit(!isEdit); // 원래있던 isEdit값을 반대로 셋팅한다 .
